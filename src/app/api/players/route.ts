@@ -7,7 +7,7 @@ const supabase = createClient(
 );
 
 export async function GET() {
-  const { data, error } = await supabase.from('games').select('*').order("created_at", {ascending: false});
+  const { data, error } = await supabase.from('players').select('*').order("name");
 
   if (error) return NextResponse.json({ error: error.message }, { status: 400 });
 
