@@ -1,30 +1,35 @@
 'use client';
 
+import React from 'react';
+
 function formatDate(date: string) {
     const d = new Date(date);
-    return `${d.getDate()}/${d.getMonth() + 1}/${d.getFullYear()} ${d.getHours()}:${d.getMinutes().toString().padStart(2,'0')}`;
+    return `${d.getDate()}/${d.getMonth() + 1}/${d.getFullYear()} ${d.getHours()}:${d.getMinutes().toString().padStart(2, '0')}`;
 }
 
-function formatPlayers(playersIds: string[], allPlayers: Player[]) {
-    return playersIds
-        .map(id => {
-            const p = allPlayers.find(pl => pl.id === id);
-            if (!p) return "";
-            return (
+function selectPlayer(player: string) {
+    console.log("select " + player);
+}
+
+function formatPlayers(playersIds: string[], allPlayers: Player[]): React.ReactNode {
+    const formatted = playersIds.map((id, index) => {
+        const p = allPlayers.find(pl => pl.id === id);
+        if (!p) return null;
+
+        return (
+            <React.Fragment key={id}>
+                {index > 0 && <span className="text-gray-500"> / </span>}
                 <a
-                    key={id}
                     onClick={() => selectPlayer(p.id)}
                     className="text-blue-600 font-medium hover:underline cursor-pointer"
                 >
                     {p.name.toUpperCase()}
                 </a>
-            );
-        })
-        .reduce((prev, curr) => prev === null ? [curr] : [...prev, " / ", curr], null as (string | JSX.Element)[]);
-}
+            </React.Fragment>
+        );
+    });
 
-function selectPlayer(player: string) {
-    console.log("select " + player);
+    return formatted;
 }
 
 export default function GameRecords({ games, players }: { games: Game[], players: Player[] }) {
