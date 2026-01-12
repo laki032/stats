@@ -12,7 +12,7 @@ function selectPlayer(player: string) {
 }
 
 function formatPlayers(playersIds: string[], allPlayers: Player[]): React.ReactNode {
-    const formatted = playersIds.map((id, index) => {
+    const formatted = playersIds.sort().map((id, index) => {
         const p = allPlayers.find(pl => pl.id === id);
         if (!p) return null;
 
