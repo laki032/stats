@@ -12,7 +12,7 @@ function selectPlayer(player: string) {
 }
 
 function formatPlayers(playersIds: string[], allPlayers: Player[]): React.ReactNode {
-    const formatted = playersIds.sort().map((id, index) => {
+    return playersIds.sort().map((id, index) => {
         const p = allPlayers.find(pl => pl.id === id);
         if (!p) return null;
 
@@ -28,8 +28,6 @@ function formatPlayers(playersIds: string[], allPlayers: Player[]): React.ReactN
             </React.Fragment>
         );
     });
-
-    return formatted;
 }
 
 export default function GameRecords({ games, players }: { games: Game[], players: Player[] }) {
